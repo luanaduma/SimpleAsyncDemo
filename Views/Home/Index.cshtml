@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center display-4 mb-4">Simple Async Demo <a asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fas fa-info-circle"></i></a> </h1>
+
+    <!-- Buttons Section -->
+    <div class="d-flex justify-content-center gap-3">
+        <button id="btnRunSync" class="btn btn-primary">Run Sync</button>
+        <button id="btnRunAsync" class="btn btn-primary">Run Async</button>
+        <button id="btnRunParallel" class="btn btn-primary">Run Parallel</button>
+    </div>
+
+    <!-- Output Section -->
+    <div class="mt-5">
+        <h5>Run Sync Output</h5>
+        <div id="output1" class="border p-3 rounded bg-light"></div>
+
+        <h5 class="mt-4">Run Async Output</h5>
+        <div id="output2" class="border p-3 rounded bg-light"></div>
+
+        <h5 class="mt-4">Run Parallel Output</h5>
+        <div id="output3" class="border p-3 rounded bg-light"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.13/signalr.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/reportHub")
+            .build();
+
+        // Handle incoming SignalR messages
+        connection.on("ReceiveMessage", function (source, message) {
+            if (source === "Async") {
+                $("#output2").append(`<div>${message}</div>`);
+            } else if (source === "Parallel") {
+                $("#output3").append(`<div>${message}</div>`);
+            }
+        });
+
+        connection.start().then(() => {
+            console.log("SignalR connected successfully");
+        }).catch(function (err) {
+            console.error("SignalR connection failed: ", err.toString());
+        });
+
+        // Utility function to handle AJAX requests
+        function handleAjaxRequest(buttonId, outputDivId, url, additionalSuccessCallback) {
+            $(buttonId).on("click", function () {
+                $(outputDivId).html(''); // Cleanup output
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    success: function (data) {
+                        if (data.error) {
+                            $(outputDivId).append(`<div class="text-danger">Error: ${data.message}</div>`);
+                        } else {
+                            if (data.output) {
+                                $(outputDivId).append(`<div>${data.output}</div>`);
+                            };
+                            $(outputDivId).append(
+                                `<div>Method: ${data.method}, Elapsed Time: ${data.elapsedTime} ms</div>`
+                            );
+                            if (additionalSuccessCallback) additionalSuccessCallback(data);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        let errorMessage = xhr.responseText || error;
+                        if (xhr.status === 500 && xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+                        $(outputDivId).html(`<div class="text-danger">An error occurred: ${errorMessage}</div>`);
+                    }
+                });
+            });
+        }
+
+        // Attach AJAX handlers to buttons
+        handleAjaxRequest("#btnRunSync", "#output1", "/Home/RunSync");
+        handleAjaxRequest("#btnRunAsync", "#output2", "/Home/RunFunc");
+        handleAjaxRequest("#btnRunParallel", "#output3", "/Home/RunParallel");
+    });
+</script>

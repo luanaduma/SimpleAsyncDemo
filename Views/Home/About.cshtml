@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "About";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center display-4 mb-4">About This Application</h1>
+
+    <p>
+        This application is a demonstration of my understanding of asynchronous programming mechanisms in C#. 
+        Its primary purpose is to showcase how different approaches to handling concurrent tasks (synchronous, asynchronous, and parallel processing) 
+        can be applied and compared in a practical setting.
+    </p>
+
+    <h3>Purpose of the Application</h3>
+    <ul>
+        <li>Explore the differences between synchronous and asynchronous programming in C#.</li>
+        <li>Learn how parallel processing can improve application performance by leveraging multiple tasks concurrently.</li>
+        <li>Understand the use of modern tools like SignalR for real-time client-server communication.</li>
+        <li>Apply <b>Task-based asynchronous patterns</b> to real-world use cases like downloading and processing data.</li>
+    </ul>
+
+    <h3>Features</h3>
+    <p>This application provides the following functionalities:</p>
+    <ul>
+        <li><b>Run Sync:</b> Demonstrates a synchronous approach where tasks are executed sequentially, blocking the thread.</li>
+        <li><b>Run Async:</b> Demonstrates asynchronous programming using the <code>async</code> and <code>await</code> keywords, allowing non-blocking operations.</li>
+        <li><b>Run Parallel:</b> Leverages <code>Task.WhenAll</code> and parallelism to execute multiple tasks concurrently, improving performance for I/O-bound operations.</li>
+        <li><b>Real-Time Output:</b> Uses SignalR to send live updates from the backend to the frontend for both async and parallel operations.</li>
+    </ul>
+
+    <h3>Technical Highlights</h3>
+    <ul>
+        <li>Implemented SignalR to push messages from the server to the client in real-time.</li>
+        <li>Used both <b>WebClient</b> and <b>HttpClient</b> for data downloads, demonstrating traditional and modern approaches to HTTP requests.</li>
+        <li>Handled errors gracefully with logging and appropriate fallback mechanisms.</li>
+        <li>Utilized dependency injection to decouple downloading and reporting logic into modular services.</li>
+    </ul>
+
+    <h3>Why This Matters</h3>
+    <p>
+        Understanding asynchronous programming is essential for modern software development, as it helps improve application responsiveness 
+        and scalability, particularly in applications with significant I/O or network-bound operations. 
+        This project serves as a foundation for applying asynchronous mechanisms in real-world scenarios such as:
+    </p>
+    <ul>
+        <li>Web scraping or downloading data from multiple sources concurrently.</li>
+        <li>Building responsive applications that do not block the UI or backend threads.</li>
+        <li>Implementing real-time features such as notifications or live updates.</li>
+    </ul>
+
+    <h3>Conclusion</h3>
+    <p>
+        This application combines theory and practice, allowing me to deepen my understanding of asynchronous mechanisms in C# 
+        and their practical implications. By experimenting with different techniques, I have learned how to optimize performance, improve user experience, 
+        and structure code for maintainability and scalability.
+    </p>
+</div>
