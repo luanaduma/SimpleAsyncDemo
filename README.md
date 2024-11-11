@@ -2,8 +2,6 @@
 
 A C# ASP.NET Core project to explore and understand asynchronous programming mechanisms. This project demonstrates the differences between synchronous, asynchronous, and parallel processing through a practical application that downloads and processes website data.
 
-![Project Banner](https://via.placeholder.com/1200x400?text=Simple+Async+Demo) <!-- Replace with a screenshot/banner of your app -->
-
 ---
 
 ## **Table of Contents**
@@ -54,24 +52,10 @@ This project is a hands-on learning tool to:
 
 ### **1. Home Page**
 The main interface with options to run synchronous, asynchronous, and parallel operations.
+Here we can see the output from each one of the 3 types of operations (sync, async and parallel)
 
-![Home Page Screenshot](https://via.placeholder.com/1200x600?text=Home+Page)
+![Home Page Screenshot](https://github.com/luanaduma/SimpleAsyncDemo/blob/main/resources/output.png)
 
----
-
-### **2. Run Sync Output**
-Output after running synchronous operations.
-
-![Run Sync Screenshot](https://via.placeholder.com/1200x600?text=Run+Sync+Output)
-
----
-
-### **3. Real-Time Updates (SignalR Integration)**
-Live updates for asynchronous and parallel operations.
-
-![SignalR Updates Screenshot](https://via.placeholder.com/1200x600?text=Real-Time+Updates)
-
----
 
 ## **Technologies Used**
 - **ASP.NET Core MVC**: Backend framework.
